@@ -20,6 +20,18 @@ from django.urls import path
 from django.http import HttpResponse
 from datetime import datetime
 
+def app(environ, start_response):
+    """Simplest possible application object"""
+    data = b'Hello, World!\n'
+    status = '200 OK'
+    response_headers = [
+        ('Content-type', 'text/plain'),
+        ('Content-Length', str(len(data)))
+    ]
+    start_response(status, response_headers)
+    return iter([data])
+
+
 # Transaction list
 transactions = []
 
@@ -64,7 +76,7 @@ def spend(request):
     points = spends['points']
     
     # conditional to find if there is a transaction history, balance, or if the amount of points that you are trying to spend are greater than the balance.
-    if points == 0 or len(transactions) == 0 or balance <= 0 or points > balance: return
+    if points == 0 or len(transactions) == 0 or balance <= 0 or points > balance: return HttpResponse("There is no balance")
     
     # tally of points as we're iterating
     tally = points
@@ -104,10 +116,20 @@ def spend(request):
 final_balance = []
 
 def balance(request):
-    for i in c:
-        final_balance.append({i:c[i]+z[i]})
-        
-    return JsonResponse(final_balance, safe=False)
+    
+    # if no transactions have been made, there is no balance
+    if z == {} and c == {}:
+        return HttpResponse("There is no balance")
+    
+    # can check balance once transactions have been made 
+    if z == {}:
+        return JsonResponse(c, safe=False)
+    # gives balance after points have been spent
+    else:    
+        for i in c:
+            final_balance.append({i:c[i]+z[i]})
+            
+        return JsonResponse(final_balance, safe=False)
 
 
 # urls
