@@ -4,7 +4,7 @@ This is a simple web service that uses three routes to mimic mock transactions, 
 
 ## Language/Framework
 
-This webservice is written in python, using django. This current iteration of this test runs on the local server. All of the code is located in the ```/points/urls.py``` file. I used pipenv for this project and have included a Pipfile. Django must be installed. It can be installed using ```pip install``` in the command line.
+This webservice is written in python, using django. This current iteration of this test runs on the local server. All of the code is located in the ```/points/urls.py``` file. I used pipenv for this project and have included a Pipfile. Django must be installed. It can be installed using ```pip install``` in the root directory once the repository has been cloned.
 
 ## Steps of Operation
 ### Please note that these routes must be accessed in the proper succession in order to get the desired results, otherwise there are no transactions to populate the balance and points cannot be spent.
