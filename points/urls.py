@@ -13,24 +13,12 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from typing import Counter, DefaultDict
+from typing import DefaultDict
 from django.contrib import admin
 from django.http.response import JsonResponse
 from django.urls import path
 from django.http import HttpResponse
 from datetime import datetime
-
-def app(environ, start_response):
-    """Simplest possible application object"""
-    data = b'Hello, World!\n'
-    status = '200 OK'
-    response_headers = [
-        ('Content-type', 'text/plain'),
-        ('Content-Length', str(len(data)))
-    ]
-    start_response(status, response_headers)
-    return iter([data])
-
 
 # Transaction list
 transactions = []
